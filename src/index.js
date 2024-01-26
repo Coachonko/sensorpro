@@ -2,10 +2,10 @@
 // https://e.sensorpro.net/
 // https://sensorpro.net/api/
 export class SensorProError extends Error {
-  constructor (result) {
+  constructor (Result) {
     super()
     this.name = 'SensorProError'
-    this.result = result
+    this.Result = Result
   }
 }
 
@@ -72,7 +72,7 @@ export class SensorPro {
         await this.#login()
         return
       } catch (err) {
-        console.error(`Login attempt ${i + 1} failed:`, err)
+        console.error(`SensorPro login attempt ${i + 1} failed:`, err)
         if (i === attempts - 1) {
           throw err
         }
@@ -106,7 +106,6 @@ export class SensorPro {
         body: JSON.stringify(body)
       })
       const responseObject = await response.json()
-      console.log(responseObject)
       if (responseObject.Result.TotalErrors > 0) {
         // if error not authorized? TODO login and try again
         throw new SensorProError(responseObject.Result)
@@ -128,7 +127,6 @@ export class SensorPro {
         body: JSON.stringify(body)
       })
       const responseObject = await response.json()
-      console.log(responseObject)
       if (responseObject.Result.TotalErrors > 0) {
         // if error not authorized? TODO login and try again
         throw new SensorProError(responseObject.Result)
