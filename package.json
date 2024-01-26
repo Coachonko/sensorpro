@@ -1,0 +1,27 @@
+{
+  "name": "sensorpro",
+  "version": "3.0.0",
+  "description": "Interface with the SensorPro API",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Coachonko/sensorpro.git"
+  },
+  "keywords": [
+    "email",
+    "marketing",
+    "transactional"
+  ],
+  "author": "Coachonko",
+  "license": "NCSA",
+  "bugs": {
+    "url": "https://github.com/Coachonko/sensorpro/issues"
+  },
+  "homepage": "https://github.com/Coachonko/sensorpro#readme",
+  "devDependencies": {
+    "standard": "^17.1.0"
+  }
+}
