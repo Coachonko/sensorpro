@@ -95,6 +95,36 @@ export class SensorPro {
     }
   }
 
+  /*
+  *
+  *
+  * Contacts
+  *
+  *
+  */
+
+  // https://sensorpro.net/api/contacts.html#contacts-getcontacts
+  async getContacts (body) {
+    if (this.#isLoggedIn()) {
+      const url = `${this.#apiEndpoint}api/Contact/GetContacts/${this.#token}`
+      const headers = { 'Content-Type': 'application/json' }
+      const response = await fetch(url, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(body)
+      })
+      const responseObject = await response.json()
+      if (responseObject.Result.TotalErrors > 0) {
+      // if error not authorized? TODO login and try again
+        throw new SensorProError(responseObject.Result)
+      }
+      return responseObject
+    } else {
+      await this.#attemptLogin()
+      return this.getContacts(body)
+    }
+  }
+
   // https://sensorpro.net/api/contacts.html#contacts-add
   async add (body) {
     if (this.#isLoggedIn()) {
@@ -115,6 +145,56 @@ export class SensorPro {
       return this.add(body)
     }
   }
+
+  // https://sensorpro.net/api/contacts.html#contacts-update
+  async update (body) {
+    if (this.#isLoggedIn()) {
+      const url = `${this.#apiEndpoint}api/Contact/Update/${this.#token}`
+      const headers = { 'Content-Type': 'application/json' }
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers,
+        body: JSON.stringify(body)
+      })
+      const responseObject = await response.json()
+      if (responseObject.Result.TotalErrors > 0) {
+        // if error not authorized? TODO login and try again
+        throw new SensorProError(responseObject.Result)
+      }
+    } else {
+      await this.#attemptLogin()
+      return this.update(body)
+    }
+  }
+
+  // https://sensorpro.net/api/contacts.html#contacts-changeoptoutstatus
+  async changeOptOutStatus (body) {
+    if (this.#isLoggedIn()) {
+      const url = `${this.#apiEndpoint}api/Contact/ChangeOptOutStatus/${this.#token}`
+      const headers = { 'Content-Type': 'application/json' }
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers,
+        body: JSON.stringify(body)
+      })
+      const responseObject = await response.json()
+      if (responseObject.Result.TotalErrors > 0) {
+        // if error not authorized? TODO login and try again
+        throw new SensorProError(responseObject.Result)
+      }
+    } else {
+      await this.#attemptLogin()
+      return this.changeOptOutStatus(body)
+    }
+  }
+
+  /*
+  *
+  *
+  * Campaigns
+  *
+  *
+  */
 
   // https://sensorpro.net/api/campaigns.html#campaign-TriggerEmail
   async triggerEmail (body) {
